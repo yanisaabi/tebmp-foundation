@@ -10,33 +10,81 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CollectivitesRouteImport } from './routes/collectivites'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as MentionsLegalesRouteImport } from './routes/mentions-legales'
+import { Route as SavoirFaireRouteImport } from './routes/savoir-faire'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CollectivitesRoute = CollectivitesRouteImport.update({
+  id: '/collectivites',
+  path: '/collectivites',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MentionsLegalesRoute = MentionsLegalesRouteImport.update({
+  id: '/mentions-legales',
+  path: '/mentions-legales',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavoirFaireRoute = SavoirFaireRouteImport.update({
+  id: '/savoir-faire',
+  path: '/savoir-faire',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/collectivites': typeof CollectivitesRoute
+  '/contact': typeof ContactRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/savoir-faire': typeof SavoirFaireRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/collectivites': typeof CollectivitesRoute
+  '/contact': typeof ContactRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/savoir-faire': typeof SavoirFaireRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/collectivites': typeof CollectivitesRoute
+  '/contact': typeof ContactRoute
+  '/mentions-legales': typeof MentionsLegalesRoute
+  '/savoir-faire': typeof SavoirFaireRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/collectivites' | '/contact' | '/mentions-legales' | '/savoir-faire'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    '/' | '/collectivites' | '/contact' | '/mentions-legales' | '/savoir-faire'
+  id:
+    | '__root__'
+    | '/'
+    | '/collectivites'
+    | '/contact'
+    | '/mentions-legales'
+    | '/savoir-faire'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CollectivitesRoute: typeof CollectivitesRoute
+  ContactRoute: typeof ContactRoute
+  MentionsLegalesRoute: typeof MentionsLegalesRoute
+  SavoirFaireRoute: typeof SavoirFaireRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +96,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/collectivites': {
+      id: '/collectivites'
+      path: '/collectivites'
+      fullPath: '/collectivites'
+      preLoaderRoute: typeof CollectivitesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mentions-legales': {
+      id: '/mentions-legales'
+      path: '/mentions-legales'
+      fullPath: '/mentions-legales'
+      preLoaderRoute: typeof MentionsLegalesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/savoir-faire': {
+      id: '/savoir-faire'
+      path: '/savoir-faire'
+      fullPath: '/savoir-faire'
+      preLoaderRoute: typeof SavoirFaireRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CollectivitesRoute: CollectivitesRoute,
+  ContactRoute: ContactRoute,
+  MentionsLegalesRoute: MentionsLegalesRoute,
+  SavoirFaireRoute: SavoirFaireRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
