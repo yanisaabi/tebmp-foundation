@@ -21,6 +21,8 @@ export const Route = createFileRoute("/")({
           "Entreprise de gros œuvre à taille humaine, habituée aux marchés publics, à Toulouse et en Haute-Garonne depuis 2007.",
       },
       { property: "og:url", content: "/" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
@@ -122,9 +124,9 @@ function Index() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
+        <div className="mt-12 grid items-stretch gap-6 md:grid-cols-3">
           {expertises.map((e, i) => (
-            <Reveal key={e.title} delay={i * 90}>
+            <Reveal key={e.title} delay={i * 90} className="h-full">
               <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
                 <span className="font-display text-sm font-semibold text-accent">
                   0{i + 1}
