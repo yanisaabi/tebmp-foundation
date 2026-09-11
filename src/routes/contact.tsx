@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useState, type FormEvent } from "react";
 import { PageHero } from "@/components/PageHero";
 import { Reveal } from "@/components/Reveal";
-import { buttonStyles } from "@/components/ui/button-link";
+import { Button } from "@/components/ui/button";
+import { submitContactRequest } from "@/lib/contact.functions";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,6 +21,8 @@ export const Route = createFileRoute("/contact")({
         content: "Discutons de votre projet de construction, de rénovation ou d'entretien de bâtiment.",
       },
       { property: "og:url", content: "/contact" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/contact" }],
   }),
@@ -70,19 +74,35 @@ function Contact() {
   const [values, setValues] = useState<Fields>(initial);
   const [errors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const submitContact = useServerFn(submitContactRequest);
 
   function update<K extends keyof Fields>(key: K, value: string) {
     setValues((v) => ({ ...v, [key]: value }));
     setErrors((e) => ({ ...e, [key]: undefined }));
   }
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSent(false);
+    setSubmitError("");
     const found = validate(values);
     setErrors(found);
     if (Object.keys(found).length > 0) return;
-    setSent(true);
-    setValues(initial);
+
+    setSubmitting(true);
+    try {
+      await submitContact({ data: { ...values, website: "" } });
+      setSent(true);
+      setValues(initial);
+    } catch {
+      setSubmitError(
+        "Votre demande n’a pas pu être envoyée. Merci de réessayer ou de nous appeler au 05 61 31 08 49.",
+      );
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -102,8 +122,16 @@ function Contact() {
                 role="status"
                 className="mt-5 rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-foreground"
               >
-                Merci, votre demande a bien été enregistrée. Nous vous recontactons rapidement. Pour
-                une réponse immédiate, appelez le 05 61 31 08 49.
+                Merci, votre demande a bien été envoyée et enregistrée. Nous vous recontactons
+                rapidement. Pour une réponse immédiate, appelez le 05 61 31 08 49.
+              </p>
+            )}
+            {submitError && (
+              <p
+                role="alert"
+                className="mt-5 rounded-xl border border-destructive/30 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+              >
+                {submitError}
               </p>
             )}
 
@@ -205,9 +233,13 @@ function Contact() {
                 )}
               </div>
 
-              <button type="submit" className={`${buttonStyles.primary} w-full sm:w-auto`}>
-                Envoyer ma demande
-              </button>
+              <Button
+                type="submit"
+                disabled={submitting}
+                className="h-auto w-full rounded-xl bg-accent px-6 py-3 text-accent-foreground shadow-soft hover:bg-accent-hover hover:shadow-lift sm:w-auto"
+              >
+                {submitting ? "Envoi en cours…" : "Envoyer ma demande"}
+              </Button>
             </form>
           </div>
         </Reveal>

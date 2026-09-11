@@ -20,6 +20,8 @@ export const Route = createFileRoute("/savoir-faire")({
           "Les trois expertises de TEBMP : gros œuvre et maçonnerie générale, génie civil, rénovation et entretien de bâtiments.",
       },
       { property: "og:url", content: "/savoir-faire" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/savoir-faire" }],
   }),
@@ -66,15 +68,15 @@ function SavoirFaire() {
       />
 
       <section className="mx-auto w-full max-w-6xl px-5 py-16 lg:px-8 lg:py-24">
-        <div className="space-y-10">
+        <div className="grid items-stretch gap-6 md:grid-cols-3">
           {blocs.map((b, i) => (
-            <Reveal key={b.title} delay={i * 80}>
-              <article className="grid gap-8 rounded-2xl border border-border bg-card p-7 shadow-soft lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+            <Reveal key={b.title} delay={i * 80} className="h-full">
+              <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-7 shadow-soft">
                 <div>
                   <span className="font-display text-sm font-semibold text-accent">0{i + 1}</span>
                   <h2 className="mt-3 font-display text-2xl leading-snug">{b.title}</h2>
                 </div>
-                <div>
+                <div className="mt-6 flex flex-1 flex-col">
                   <p className="text-base leading-relaxed text-muted-foreground">{b.text}</p>
                   <ul className="mt-5 space-y-3">
                     {b.details.map((d) => (

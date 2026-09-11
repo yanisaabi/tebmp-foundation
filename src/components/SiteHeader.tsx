@@ -14,12 +14,12 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 lg:flex lg:justify-between lg:px-8">
+        <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
           <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-bold text-primary-foreground">
             TB
           </span>
-          <span className="leading-tight">
+          <span className="min-w-0 leading-tight">
             <span className="block font-display text-lg font-bold text-primary">TEBMP</span>
             <span className="hidden text-[11px] uppercase tracking-[0.14em] text-muted-foreground sm:block">
               Gros œuvre &amp; maçonnerie générale

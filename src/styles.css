@@ -67,7 +67,7 @@
   --accent: oklch(0.6052 0.1353 48.29);
   --accent-foreground: oklch(1 0 0);
   --accent-hover: oklch(0.5248 0.125 45.96);
-  --accent-soft: oklch(0.7044 0.1187 53.45);
+  --accent-soft: oklch(0.78 0.105 55);
   --anthracite: oklch(0.2735 0.0141 248.34);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
@@ -98,7 +98,7 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 600;
-    letter-spacing: -0.015em;
+    letter-spacing: 0;
     color: var(--color-primary);
   }
 }
@@ -139,5 +139,17 @@
   &[data-visible="true"] {
     opacity: 1;
     transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

@@ -13,6 +13,8 @@ export const Route = createFileRoute("/mentions-legales")({
       { property: "og:title", content: "Mentions légales | TEBMP" },
       { property: "og:description", content: "Informations légales de la société TEBMP." },
       { property: "og:url", content: "/mentions-legales" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
     links: [{ rel: "canonical", href: "/mentions-legales" }],

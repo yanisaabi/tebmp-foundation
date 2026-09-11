@@ -19,6 +19,8 @@ export const Route = createFileRoute("/collectivites")({
           "Un partenaire habitué aux exigences des marchés publics pour les bâtiments publics et collectifs en Haute-Garonne.",
       },
       { property: "og:url", content: "/collectivites" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [{ rel: "canonical", href: "/collectivites" }],
   }),
