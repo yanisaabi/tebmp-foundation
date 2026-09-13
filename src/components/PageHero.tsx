@@ -12,14 +12,14 @@ export function PageHero({
   children?: ReactNode;
 }) {
   return (
-    <section className="relative overflow-hidden bg-primary text-primary-foreground">
-      <div className="absolute inset-0 blueprint-grid-light opacity-60" aria-hidden="true" />
-      <div className="relative mx-auto w-full max-w-6xl px-5 py-16 lg:px-8 lg:py-24">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent-soft">{eyebrow}</p>
-        <h1 className="mt-4 max-w-3xl font-display text-3xl leading-tight text-primary-foreground sm:text-4xl lg:text-5xl">
+    <section className="relative overflow-hidden border-b border-border bg-background">
+      <div className="absolute inset-0 blueprint-grid opacity-45" aria-hidden="true" />
+      <div className="relative mx-auto w-full max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+        <p className="inline-flex border-l-4 border-accent-soft pl-3 text-xs font-bold uppercase tracking-[0.12em] text-accent">{eyebrow}</p>
+        <h1 className="mt-5 max-w-3xl font-display text-4xl font-extrabold leading-[1.08] text-primary sm:text-5xl lg:text-6xl">
           {title}
         </h1>
-        <p className="mt-5 max-w-2xl text-base leading-relaxed text-primary-foreground/80 sm:text-lg">
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
           {intro}
         </p>
         {children && <div className="mt-8">{children}</div>}

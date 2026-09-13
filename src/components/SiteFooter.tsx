@@ -10,10 +10,10 @@ const links = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-anthracite text-background/80">
-      <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
+    <footer className="border-t-4 border-accent-soft bg-anthracite text-background/80">
+      <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         <div>
-          <p className="font-display text-xl font-bold text-background">TEBMP</p>
+          <p className="font-display text-2xl font-extrabold text-background">TEBMP</p>
           <p className="mt-2 text-sm leading-relaxed">
             Travaux Entretien Bâtiment Midi-Pyrénées — gros œuvre, maçonnerie générale et génie civil
             à Toulouse depuis 2007.
@@ -52,7 +52,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-background/15">
-        <div className="mx-auto w-full max-w-6xl px-5 py-6 text-xs leading-relaxed text-background/60 lg:px-8">
+        <div className="mx-auto w-full max-w-7xl px-5 py-6 text-xs leading-relaxed text-background/60 lg:px-8">
           TEBMP – SAS au capital de 170 000 € – SIREN 501 456 479 – RCS Toulouse – 13 Bis impasse de
           la Flambère, 31300 Toulouse – 05 61 31 08 49
         </div>

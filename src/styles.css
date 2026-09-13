@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * TEBMP design system — navy institutionnel, cuivre, fonds clairs chauds.
- * Titres : Fraunces (serif contemporain). Corps : Inter.
+ * TEBMP design system — bleu chantier, jaune signalétique, fonds froids lumineux.
+ * Titres : Urbanist. Corps : Epilogue.
  */
 
 @theme inline {
@@ -18,8 +18,8 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-sans: "Epilogue", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Urbanist", ui-sans-serif, system-ui, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -45,35 +45,35 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  --shadow-soft: 0 1px 2px oklch(0.2789 0.0604 250.19 / 6%), 0 8px 24px -12px oklch(0.2789 0.0604 250.19 / 18%);
-  --shadow-lift: 0 2px 4px oklch(0.2789 0.0604 250.19 / 8%), 0 18px 36px -18px oklch(0.2789 0.0604 250.19 / 26%);
+  --shadow-soft: 0 1px 2px oklch(0.2785 0.0564 249.75 / 6%), 0 12px 32px -18px oklch(0.2785 0.0564 249.75 / 18%);
+  --shadow-lift: 0 3px 8px oklch(0.2785 0.0564 249.75 / 10%), 0 24px 44px -22px oklch(0.2785 0.0564 249.75 / 28%);
 }
 
 :root {
-  --radius: 0.875rem;
-  --background: oklch(0.9679 0.0045 78.3);
-  --foreground: oklch(0.2439 0.013 243.42);
-  --surface: oklch(0.9377 0.0087 84.57);
+  --radius: 0.375rem;
+  --background: oklch(0.9743 0.0025 165.08);
+  --foreground: oklch(0.2342 0.0467 250.48);
+  --surface: oklch(0.9167 0.0095 222.06);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.2439 0.013 243.42);
+  --card-foreground: oklch(0.2342 0.0467 250.48);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.2439 0.013 243.42);
-  --primary: oklch(0.2789 0.0604 250.19);
-  --primary-foreground: oklch(0.9679 0.0045 78.3);
-  --secondary: oklch(0.9377 0.0087 84.57);
-  --secondary-foreground: oklch(0.2789 0.0604 250.19);
-  --muted: oklch(0.9377 0.0087 84.57);
-  --muted-foreground: oklch(0.5021 0.0215 250.78);
-  --accent: oklch(0.6052 0.1353 48.29);
+  --primary: oklch(0.2785 0.0564 249.75);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.9167 0.0095 222.06);
+  --secondary-foreground: oklch(0.2785 0.0564 249.75);
+  --muted: oklch(0.9167 0.0095 222.06);
+  --muted-foreground: oklch(0.4967 0.0302 239.61);
+  --accent: oklch(0.4935 0.087 226.02);
   --accent-foreground: oklch(1 0 0);
-  --accent-hover: oklch(0.5248 0.125 45.96);
-  --accent-soft: oklch(0.78 0.105 55);
-  --anthracite: oklch(0.2735 0.0141 248.34);
+  --accent-hover: oklch(0.4100 0.075 226.02);
+  --accent-soft: oklch(0.8114 0.1656 84.96);
+  --anthracite: oklch(0.2342 0.0467 250.48);
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.9018 0.0104 81.79);
-  --input: oklch(0.9018 0.0104 81.79);
-  --ring: oklch(0.6052 0.1353 48.29);
+  --border: oklch(0.873 0.013 228);
+  --input: oklch(0.873 0.013 228);
+  --ring: oklch(0.4935 0.087 226.02);
 }
 
 @layer base {
@@ -97,34 +97,34 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0;
     color: var(--color-primary);
   }
 }
 
-/* Motif discret inspiré des plans d'architecte */
+/* Motif technique inspiré des plans d'architecte */
 @utility blueprint-grid {
   background-image:
-    linear-gradient(to right, oklch(0.2789 0.0604 250.19 / 7%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.2789 0.0604 250.19 / 7%) 1px, transparent 1px);
-  background-size: 56px 56px;
+    linear-gradient(to right, oklch(0.2785 0.0564 249.75 / 7%) 1px, transparent 1px),
+    linear-gradient(to bottom, oklch(0.2785 0.0564 249.75 / 7%) 1px, transparent 1px);
+  background-size: 48px 48px;
 }
 
 @utility blueprint-grid-light {
   background-image:
     linear-gradient(to right, oklch(1 0 0 / 7%) 1px, transparent 1px),
     linear-gradient(to bottom, oklch(1 0 0 / 7%) 1px, transparent 1px);
-  background-size: 64px 64px;
+  background-size: 48px 48px;
 }
 
 @utility rule-accent {
   &::before {
     content: "";
     display: block;
-    width: 44px;
-    height: 3px;
-    background: var(--color-accent);
+    width: 56px;
+    height: 5px;
+    background: var(--color-accent-soft);
     margin-bottom: 1.25rem;
   }
 }
