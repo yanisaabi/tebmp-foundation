@@ -151,8 +151,8 @@ function Index() {
       {/* Pourquoi TEBMP */}
       <section className="bg-surface">
         <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 lg:grid-cols-12 lg:items-center lg:px-8 lg:py-24">
-          <Reveal>
-            <div className="overflow-hidden rounded-sm shadow-soft lg:col-span-7">
+          <Reveal className="lg:col-span-7">
+            <div className="overflow-hidden rounded-sm shadow-soft">
               <img
                 src={batimentPublic}
                 alt="Façade en pierre claire d'un bâtiment public français avec parvis et drapeau"
@@ -163,8 +163,8 @@ function Index() {
               />
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <div className="rule-accent lg:col-span-5">
+          <Reveal delay={100} className="lg:col-span-5">
+            <div className="rule-accent">
               <h2 className="font-display text-2xl sm:text-3xl">Pourquoi choisir TEBMP</h2>
               <ul className="mt-6 space-y-4">
                 {reasons.map((r) => (

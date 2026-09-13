@@ -67,7 +67,7 @@ function Collectivites() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2">
           {points.map((p, i) => (
             <Reveal key={p.title} delay={i * 80}>
-              <article className="h-full rounded-2xl border border-border bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+              <article className="h-full rounded-sm border border-border bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift">
                 <h2 className="font-display text-lg leading-snug">{p.title}</h2>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.text}</p>
               </article>

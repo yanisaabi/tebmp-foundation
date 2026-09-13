@@ -54,7 +54,7 @@ type Errors = Partial<Record<keyof Fields, string>>;
 const initial: Fields = { nom: "", telephone: "", email: "", type: "", message: "" };
 
 const fieldClass =
-  "w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/70 focus:border-accent focus:ring-2 focus:ring-accent/25";
+  "w-full rounded-sm border border-border bg-card px-4 py-3 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/70 focus:border-accent focus:ring-2 focus:ring-accent/25";
 
 function validate(v: Fields): Errors {
   const e: Errors = {};
@@ -115,7 +115,7 @@ function Contact() {
 
       <section className="mx-auto grid w-full max-w-6xl gap-12 px-5 py-16 lg:grid-cols-[1.1fr_0.9fr] lg:px-8 lg:py-24">
         <Reveal>
-          <div className="rounded-2xl border border-border bg-card p-7 shadow-soft lg:p-9">
+          <div className="rounded-sm border border-border bg-card p-7 shadow-soft lg:p-9">
             <h2 className="font-display text-xl">Nous écrire</h2>
             {sent && (
               <p
@@ -236,7 +236,7 @@ function Contact() {
               <Button
                 type="submit"
                 disabled={submitting}
-                className="h-auto w-full rounded-xl bg-accent px-6 py-3 text-accent-foreground shadow-soft hover:bg-accent-hover hover:shadow-lift sm:w-auto"
+                className="h-auto w-full rounded-sm bg-accent px-6 py-3 text-xs font-bold uppercase tracking-[0.08em] text-accent-foreground shadow-soft hover:bg-accent-hover hover:shadow-lift sm:w-auto"
               >
                 {submitting ? "Envoi en cours…" : "Envoyer ma demande"}
               </Button>
@@ -246,16 +246,16 @@ function Contact() {
 
         <Reveal delay={100}>
           <div className="space-y-6">
-            <div className="rounded-2xl border border-border bg-surface p-7">
+            <div className="rounded-sm border-l-4 border-accent-soft bg-primary p-7 text-primary-foreground shadow-soft">
               <h2 className="font-display text-xl">Nous joindre</h2>
-              <p className="mt-4 text-sm text-muted-foreground">Téléphone</p>
+              <p className="mt-4 text-sm text-primary-foreground/65">Téléphone</p>
               <a
                 href="tel:+33561310849"
-                className="font-display text-2xl font-semibold text-accent transition-colors hover:text-accent-hover"
+                className="font-display text-2xl font-bold text-accent-soft transition-opacity hover:opacity-80"
               >
                 05 61 31 08 49
               </a>
-              <p className="mt-6 text-sm text-muted-foreground">Adresse</p>
+              <p className="mt-6 text-sm text-primary-foreground/65">Adresse</p>
               <address className="not-italic leading-relaxed">
                 13 Bis impasse de la Flambère
                 <br />
@@ -263,7 +263,7 @@ function Contact() {
               </address>
             </div>
 
-            <div className="rounded-2xl border border-border bg-card p-7 shadow-soft">
+            <div className="rounded-sm border border-border bg-card p-7 shadow-soft">
               <h2 className="font-display text-xl">Questions fréquentes</h2>
               <dl className="mt-5 space-y-5">
                 {faq.map((item) => (
