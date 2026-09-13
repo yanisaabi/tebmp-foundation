@@ -71,7 +71,7 @@ function SavoirFaire() {
         <div className="grid items-stretch gap-6 md:grid-cols-3">
           {blocs.map((b, i) => (
             <Reveal key={b.title} delay={i * 80} className="h-full">
-              <article className="flex h-full flex-col rounded-2xl border border-border bg-card p-7 shadow-soft">
+              <article className="flex h-full flex-col rounded-sm border border-border bg-card p-7 shadow-soft transition-all duration-300 hover:border-accent hover:shadow-lift">
                 <div>
                   <span className="font-display text-sm font-semibold text-accent">0{i + 1}</span>
                   <h2 className="mt-3 font-display text-2xl leading-snug">{b.title}</h2>
@@ -99,7 +99,7 @@ function SavoirFaire() {
       <section className="bg-surface">
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-5 py-16 lg:grid-cols-2 lg:items-center lg:px-8">
           <Reveal>
-            <div className="overflow-hidden rounded-2xl shadow-soft">
+            <div className="overflow-hidden rounded-sm shadow-soft">
               <img
                 src={coulage}
                 alt="Coulage de béton dans un coffrage avec armatures en acier sur un chantier"

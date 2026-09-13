@@ -14,13 +14,14 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 lg:flex lg:justify-between lg:px-8">
+      <div className="mx-auto grid h-20 w-full max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 lg:flex lg:justify-between lg:px-8">
         <Link to="/" className="flex min-w-0 items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary font-display text-sm font-bold text-primary-foreground">
+          <span className="relative flex h-11 w-11 items-center justify-center rounded-sm bg-primary font-display text-sm font-extrabold text-primary-foreground">
+            <span className="absolute bottom-0 left-0 h-1 w-full bg-accent-soft" aria-hidden="true" />
             TB
           </span>
           <span className="min-w-0 leading-tight">
-            <span className="block font-display text-lg font-bold text-primary">TEBMP</span>
+            <span className="block font-display text-xl font-extrabold text-primary">TEBMP</span>
             <span className="hidden text-[11px] uppercase tracking-[0.14em] text-muted-foreground sm:block">
               Gros œuvre &amp; maçonnerie générale
             </span>
@@ -34,7 +35,7 @@ export function SiteHeader() {
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
               activeProps={{ className: "text-primary after:w-full" }}
-              className="relative py-1 text-sm font-medium text-muted-foreground transition-colors after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:w-0 after:bg-accent after:transition-all hover:text-primary hover:after:w-full"
+              className="relative py-1 text-xs font-bold uppercase tracking-[0.06em] text-muted-foreground transition-colors after:absolute after:-bottom-1.5 after:left-0 after:h-0.5 after:w-0 after:bg-accent-soft after:transition-all hover:text-primary hover:after:w-full"
             >
               {item.label}
             </Link>
@@ -52,7 +53,7 @@ export function SiteHeader() {
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
           aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
-          className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-primary transition-colors hover:bg-secondary lg:hidden"
+          className="flex h-10 w-10 items-center justify-center rounded-sm border border-border text-primary transition-colors hover:bg-secondary lg:hidden"
         >
           <svg
             viewBox="0 0 24 24"

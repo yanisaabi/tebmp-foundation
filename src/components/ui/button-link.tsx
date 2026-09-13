@@ -2,12 +2,12 @@ import { Link } from "@tanstack/react-router";
 import type { ComponentProps, ReactNode } from "react";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+  "inline-flex min-h-12 items-center justify-center gap-2 rounded-sm px-6 py-3 text-xs font-bold uppercase tracking-[0.08em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
 
 export const buttonStyles = {
-  primary: `${base} bg-accent text-accent-foreground shadow-soft hover:bg-accent-hover hover:shadow-lift`,
+  primary: `${base} bg-accent text-accent-foreground shadow-soft hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lift`,
   outline: `${base} border border-primary/30 bg-transparent text-primary hover:border-primary hover:bg-primary/5`,
-  outlineLight: `${base} border border-background/40 bg-transparent text-background hover:border-background hover:bg-background/10`,
+  outlineLight: `${base} border border-primary bg-background text-primary hover:bg-secondary`,
 } as const;
 
 type Variant = keyof typeof buttonStyles;
