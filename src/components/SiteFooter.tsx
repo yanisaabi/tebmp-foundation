@@ -10,7 +10,7 @@ const links = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t-4 border-accent-soft bg-anthracite text-background/80">
+    <footer className="border-t-4 border-accent bg-anthracite text-background/80">
       <div className="mx-auto grid w-full max-w-7xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3 lg:px-8">
         <div>
           <p className="font-display text-2xl font-extrabold text-background">TEBMP</p>

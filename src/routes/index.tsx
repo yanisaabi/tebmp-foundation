@@ -62,63 +62,59 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-background">
-        <div className="absolute inset-0 blueprint-grid opacity-35" aria-hidden="true" />
-        <div className="relative mx-auto grid w-full max-w-7xl gap-12 px-5 py-14 lg:grid-cols-12 lg:items-center lg:px-8 lg:py-20">
-          <div className="lg:col-span-6">
-            <p className="inline-flex border-l-4 border-accent-soft pl-3 text-xs font-bold uppercase tracking-[0.12em] text-accent">
+      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+        <div className="absolute inset-0 blueprint-grid-light opacity-40" aria-hidden="true" />
+        <div className="hero-rise relative mx-auto flex min-h-[36rem] w-full max-w-7xl flex-col items-center justify-center px-5 py-16 text-center lg:min-h-[42rem] lg:px-8 lg:py-24">
+          <div className="max-w-5xl">
+            <p className="inline-flex border-l-4 border-accent pl-3 text-xs font-bold uppercase tracking-[0.12em] text-accent-soft">
               Toulouse &amp; Haute-Garonne · Depuis 2007
             </p>
-            <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] text-primary sm:text-5xl lg:text-6xl">
-              Gros œuvre et maçonnerie générale au service des collectivités
+            <h1 className="mt-7 font-display text-5xl font-semibold leading-[0.98] text-primary-foreground sm:text-6xl lg:text-8xl">
+              Gros œuvre et maçonnerie <span className="text-accent-soft">générale</span> au service des collectivités
             </h1>
-            <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+            <p className="mx-auto mt-7 max-w-2xl text-base leading-relaxed text-primary-foreground/68 sm:text-lg">
               TEBMP construit, rénove et entretient des bâtiments publics et collectifs à Toulouse et
               en Haute-Garonne depuis 2007. Une entreprise à taille humaine, rigoureuse et habituée
               aux marchés publics.
             </p>
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
               <ButtonLink to="/contact">Discuter de mon projet</ButtonLink>
-              <PhoneLink variant="outline" />
+              <PhoneLink variant="outlineLight" />
             </div>
           </div>
-
-          <div className="relative pb-7 lg:col-span-6 lg:pl-8">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-lift lg:aspect-[4/5]">
-              <img
-                src={heroImage}
-                alt="Structure en béton armé d'un bâtiment en cours de construction, avec grues et coffrages"
-                width={1600}
-                height={1008}
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-primary/80 to-transparent" aria-hidden="true" />
-            </div>
-            <div className="absolute bottom-0 left-0 border-l-4 border-accent-soft bg-card px-5 py-4 shadow-lift lg:left-0">
-              <p className="font-display text-base font-bold text-primary">Gros œuvre · Génie civil</p>
-              <p className="mt-1 text-[11px] text-muted-foreground">Image d'illustration de chantier</p>
-            </div>
+        </div>
+        <div className="image-reveal relative mx-auto w-full max-w-[96rem] px-5 lg:px-8">
+          <div className="h-[22rem] overflow-hidden rounded-t-sm sm:h-[30rem] lg:h-[38rem]">
+            <img
+              src={heroImage}
+              alt="Structure en béton armé d'un bâtiment en cours de construction, avec grues et coffrages"
+              width={1600}
+              height={1008}
+              className="h-full w-full object-cover object-center"
+            />
           </div>
         </div>
       </section>
 
       {/* Chiffres clés */}
-      <section className="border-y border-border bg-primary">
-        <div className="mx-auto grid w-full max-w-7xl gap-px bg-primary-foreground/15 px-0 sm:grid-cols-2 lg:grid-cols-4">
-          {facts.map((f) => (
-            <div key={f.value} className="bg-primary px-6 py-8 lg:px-8">
-              <p className="font-display text-lg font-bold text-primary-foreground">{f.value}</p>
-              <p className="mt-1 text-sm text-primary-foreground/65">{f.label}</p>
-            </div>
+      <section className="border-y border-primary-foreground/10 bg-primary">
+        <div className="mx-auto grid w-full max-w-[96rem] gap-px bg-primary-foreground/15 px-0 sm:grid-cols-2 lg:grid-cols-4">
+          {facts.map((f, i) => (
+            <Reveal key={f.value} delay={i * 90} className="h-full bg-primary">
+              <div className="h-full bg-primary px-6 py-9 lg:px-8">
+                <p className="font-display text-xl font-semibold text-primary-foreground">{f.value}</p>
+                <p className="mt-1 text-sm text-primary-foreground/60">{f.label}</p>
+              </div>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* Savoir-faire */}
-      <section className="mx-auto w-full max-w-7xl px-5 py-16 lg:px-8 lg:py-24">
+      <section className="mx-auto w-full max-w-7xl px-5 py-20 lg:px-8 lg:py-32">
         <Reveal>
           <div className="max-w-2xl rule-accent">
-            <h2 className="font-display text-2xl sm:text-3xl">Notre savoir-faire</h2>
+            <h2 className="font-display text-3xl font-semibold sm:text-5xl">Notre savoir-faire</h2>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               Trois domaines complémentaires qui couvrent la vie structurelle d'un bâtiment, de sa
               construction à son entretien.
@@ -126,14 +122,14 @@ function Index() {
           </div>
         </Reveal>
 
-        <div className="mt-12 grid items-stretch gap-6 md:grid-cols-3">
+        <div className="mt-14 grid items-stretch border-y border-border md:grid-cols-3">
           {expertises.map((e, i) => (
             <Reveal key={e.title} delay={i * 90} className="h-full">
-              <article className="group flex h-full flex-col rounded-sm border border-border bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-lift">
-                <span className="font-display text-sm font-extrabold text-accent">
+              <article className="group flex h-full flex-col border-b border-border bg-card p-7 transition-all duration-300 hover:bg-surface md:border-b-0 md:border-r md:p-9 md:last:border-r-0">
+                <span className="text-xs font-bold uppercase tracking-[0.14em] text-accent">
                   0{i + 1}
                 </span>
-                <h3 className="mt-3 font-display text-xl leading-snug">{e.title}</h3>
+                <h3 className="mt-5 font-display text-2xl font-semibold leading-snug">{e.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{e.text}</p>
                 <Link
                   to="/savoir-faire"
@@ -150,9 +146,9 @@ function Index() {
 
       {/* Pourquoi TEBMP */}
       <section className="bg-surface">
-        <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-16 lg:grid-cols-12 lg:items-center lg:px-8 lg:py-24">
+        <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 py-20 lg:grid-cols-12 lg:items-center lg:px-8 lg:py-32">
           <Reveal className="lg:col-span-7">
-            <div className="overflow-hidden rounded-sm shadow-soft">
+            <div className="overflow-hidden rounded-sm shadow-lift">
               <img
                 src={batimentPublic}
                 alt="Façade en pierre claire d'un bâtiment public français avec parvis et drapeau"
@@ -165,7 +161,7 @@ function Index() {
           </Reveal>
           <Reveal delay={100} className="lg:col-span-5">
             <div className="rule-accent">
-              <h2 className="font-display text-2xl sm:text-3xl">Pourquoi choisir TEBMP</h2>
+              <h2 className="font-display text-3xl font-semibold sm:text-5xl">Pourquoi choisir TEBMP</h2>
               <ul className="mt-6 space-y-4">
                 {reasons.map((r) => (
                   <li key={r} className="flex gap-3 text-base leading-relaxed text-foreground/85">

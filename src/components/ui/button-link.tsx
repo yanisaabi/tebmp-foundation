@@ -7,7 +7,7 @@ const base =
 export const buttonStyles = {
   primary: `${base} bg-accent text-accent-foreground shadow-soft hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-lift`,
   outline: `${base} border border-primary/30 bg-transparent text-primary hover:border-primary hover:bg-primary/5`,
-  outlineLight: `${base} border border-primary bg-background text-primary hover:bg-secondary`,
+  outlineLight: `${base} border border-primary-foreground/30 bg-transparent text-primary-foreground hover:border-primary-foreground hover:bg-primary-foreground/10`,
 } as const;
 
 type Variant = keyof typeof buttonStyles;
