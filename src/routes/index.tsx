@@ -90,7 +90,7 @@ function Index() {
               alt="Structure en béton armé d'un bâtiment en cours de construction, avec grues et coffrages"
               width={1600}
               height={1008}
-              className="h-full w-full object-cover object-center"
+              className="hero-ken-burns h-full w-full object-cover object-center"
             />
           </div>
         </div>
