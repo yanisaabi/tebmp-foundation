@@ -62,9 +62,33 @@ function Index() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-primary text-primary-foreground lg:min-h-[46rem]">
-        <div className="relative mx-auto w-full max-w-7xl px-5 pt-16 lg:flex lg:min-h-[46rem] lg:items-center lg:px-8 lg:py-24">
-          <div className="hero-rise max-w-xl pb-12 lg:max-w-lg lg:pb-0">
+      <section className="relative min-h-[38rem] overflow-hidden bg-primary text-primary-foreground sm:min-h-[42rem] lg:min-h-[46rem]">
+        {/* Photographie en arrière-plan de toute la section */}
+        <div className="image-reveal absolute inset-0">
+          <img
+            src={heroImage}
+            alt="Ouvriers du bâtiment au travail sur la structure d'un chantier de gros œuvre au coucher du soleil"
+            width={1179}
+            height={790}
+            className="hero-ken-burns h-full w-full object-cover object-[42%_66%] lg:object-[58%_62%]"
+          />
+          {/* Voile vertical sous le texte en mobile, latéral en desktop : la photo reste lisible sans jamais gêner la lecture */}
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-primary/88 via-primary/72 to-primary lg:hidden"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 hidden lg:block lg:bg-gradient-to-r lg:from-primary lg:via-primary/75 lg:to-primary/20"
+            aria-hidden="true"
+          />
+          <div
+            className="absolute inset-0 hidden lg:block lg:bg-gradient-to-b lg:from-primary/70 lg:via-transparent lg:to-primary"
+            aria-hidden="true"
+          />
+        </div>
+
+        <div className="relative mx-auto flex w-full min-h-[38rem] max-w-7xl items-center px-5 py-16 sm:min-h-[42rem] lg:min-h-[46rem] lg:px-8 lg:py-24">
+          <div className="hero-rise max-w-xl lg:max-w-2xl">
             <p className="inline-flex border-l-4 border-accent pl-3 text-xs font-bold uppercase tracking-[0.12em] text-accent-soft">
               Toulouse &amp; Haute-Garonne · Depuis 2007
             </p>
@@ -82,29 +106,6 @@ function Index() {
               <PhoneLink variant="outlineLight" />
             </div>
           </div>
-        </div>
-
-        {/* Photo — a full-bleed band under the text on mobile, a bleeding right-hand panel on desktop */}
-        <div className="image-reveal relative mt-12 h-[19rem] w-full sm:h-[24rem] lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:h-full lg:w-[55%]">
-          <div
-            className="absolute inset-x-0 top-0 z-10 h-16 bg-gradient-to-b from-primary to-transparent lg:hidden"
-            aria-hidden="true"
-          />
-          <img
-            src={heroImage}
-            alt="Ouvriers du bâtiment au travail sur la structure d'un chantier de gros œuvre au coucher du soleil"
-            width={1179}
-            height={790}
-            className="hero-ken-burns h-full w-full object-cover object-[52%_58%]"
-          />
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-primary via-primary/15 to-transparent"
-            aria-hidden="true"
-          />
-          <div
-            className="absolute inset-y-0 left-0 hidden w-2/3 bg-gradient-to-r from-primary via-primary/40 to-transparent lg:block"
-            aria-hidden="true"
-          />
         </div>
 
         {/* Grille technique continue, par-dessus texte et photo, pour souder la composition */}
