@@ -63,8 +63,6 @@ function Index() {
     <>
       {/* Hero */}
       <section className="relative overflow-hidden bg-primary text-primary-foreground lg:min-h-[46rem]">
-        <div className="absolute inset-0 blueprint-grid-light opacity-40" aria-hidden="true" />
-
         <div className="relative mx-auto w-full max-w-7xl px-5 pt-16 lg:flex lg:min-h-[46rem] lg:items-center lg:px-8 lg:py-24">
           <div className="hero-rise max-w-xl pb-12 lg:max-w-lg lg:pb-0">
             <p className="inline-flex border-l-4 border-accent pl-3 text-xs font-bold uppercase tracking-[0.12em] text-accent-soft">
@@ -94,10 +92,10 @@ function Index() {
           />
           <img
             src={heroImage}
-            alt="Coulage de béton dans un coffrage ferraillé sur un chantier de gros œuvre, lumière de fin de journée"
-            width={1200}
-            height={912}
-            className="hero-ken-burns h-full w-full object-cover object-[58%_44%]"
+            alt="Ouvriers du bâtiment au travail sur la structure d'un chantier de gros œuvre au coucher du soleil"
+            width={1179}
+            height={790}
+            className="hero-ken-burns h-full w-full object-cover object-[52%_58%]"
           />
           <div
             className="absolute inset-0 bg-gradient-to-t from-primary via-primary/15 to-transparent"
@@ -108,6 +106,12 @@ function Index() {
             aria-hidden="true"
           />
         </div>
+
+        {/* Grille technique continue, par-dessus texte et photo, pour souder la composition */}
+        <div
+          className="pointer-events-none absolute inset-0 blueprint-grid-light opacity-40"
+          aria-hidden="true"
+        />
       </section>
 
       {/* Chiffres clés */}
