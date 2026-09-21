@@ -53,8 +53,7 @@ export function SiteFooter() {
 
       <div className="border-t border-background/15">
         <div className="mx-auto w-full max-w-7xl px-5 py-6 text-xs leading-relaxed text-background/60 lg:px-8">
-          TEBMP – SAS au capital de 170 000 € – SIREN 501 456 479 – RCS Toulouse – 13 Bis impasse de
-          la Flambère, 31300 Toulouse – 05 61 31 08 49
+          TEBMP – 13 Bis impasse de la Flambère, 31300 Toulouse – 05 61 31 08 49
         </div>
       </div>
     </footer>

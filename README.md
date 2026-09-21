@@ -22,19 +22,21 @@ Construis un site vitrine professionnel complet pour l'entreprise TEBMP (Travaux
 === DIRECTION ARTISTIQUE ===
 Ambiance : sobre, professionnelle, technique mais chaleureuse. Évite absolument le look "généré par IA" (pas de cartes toutes identiques, pas de gradients criards, pas de blobs, pas d'icônes génériques en pagaille, pas de titres énormes, pas de sections répétitives).
 
-Palette (HEX exacts) :
-- Navy institutionnel (primaire) : #0E2A45
-- Anthracite (texte/fond sombre) : #22282E
-- Cuivre/terracotta (accent CTA) : #C1652F, hover #A34F22
-- Fond clair chaud : #F6F4F1
-- Fond alterné : #EDEAE4
-- Texte principal : #1B2126
-- Texte secondaire : #5B6570
-- Bordures : #E2DED7
+Palette (HEX approximatifs — valeurs réelles définies en oklch dans `src/styles.css`) :
+- Charbon/brun institutionnel (primaire, fond sombre du hero et des bandeaux) : #2F1A14
+- Anthracite (fond très sombre, footer) : #22130E
+- Orange chantier (accent CTA) : #F26823, hover #D54E19
+- Fond clair ivoire : #F8F2ED
+- Fond alterné : #EDE4DC
+- Texte principal : #261B17
+- Texte secondaire : #6C5D55
+- Bordures : #D1C5BA
 
-Typographie : titres en serif contemporain type "Fraunces" (semi-bold/black, donne une touche architecturale et solide), corps de texte en "Inter" (Google Fonts). Hiérarchie claire, bonne respiration entre sections.
+Typographie : titres en serif contemporain "Fraunces" (semi-bold/black, touche architecturale et solide), corps de texte en "Epilogue" (Google Fonts). Hiérarchie claire, bonne respiration entre sections.
 
-Composants : boutons pleins cuivre pour CTA principal (hover assombri), boutons outline navy pour CTA secondaire, cartes à coins modérément arrondis (12-16px, pas trop ronds — garder un ton sérieux), ombres légères et sobres, pas de gradients.
+Composants : boutons pleins orange chantier pour CTA principal (hover assombri), boutons outline (fond sombre/blanc) pour CTA secondaire, cartes à coins modérément arrondis (12-16px, pas trop ronds — garder un ton sérieux), ombres légères et sobres, pas de gradients.
+
+Historique : le brief initial visait une palette navy institutionnel / cuivre (#0E2A45 / #C1652F). Le site a été retravaillé directement dans Lovable vers la direction charbon/orange ci-dessus, qui est désormais la version retenue.
 
 Imagerie : comme il n'existe aucune photo réelle de chantier de l'entreprise, utilise des photos libres de droits de qualité (chantiers de gros œuvre, coulage de béton, structures en construction, façades de bâtiments publics) UNIQUEMENT comme ambiance visuelle — ne les présente jamais comme "nos réalisations" ou avec une légende laissant croire que c'est un chantier de TEBMP. Tu peux aussi utiliser des motifs géométriques discrets inspirés de plans d'architecte pour renforcer l'identité sans tomber dans le générique.
 
@@ -98,9 +100,10 @@ FAQ courte (3-4 questions, sur la page Contact ou en bas de l'accueil) :
 - "Comment vous contacter ?" → "Par téléphone au 05 61 31 08 49 ou via le formulaire de ce site."
 
 --- FOOTER (toutes les pages) ---
-TEBMP – SAS au capital de 170 000 € – SIREN 501 456 479 – RCS Toulouse
-13 Bis impasse de la Flambère, 31300 Toulouse – 05 61 31 08 49
+TEBMP – 13 Bis impasse de la Flambère, 31300 Toulouse – 05 61 31 08 49
 Liens : Accueil / Notre savoir-faire / Collectivités & secteur public / Contact / Mentions légales (page simple avec ces infos légales)
+
+Le capital social, le SIREN et le RCS ne sont volontairement pas répétés dans le pied de page : ils figurent uniquement sur la page Mentions légales, où la LCEN impose leur présence.
 
 === EXIGENCES TECHNIQUES ===
 - Site full responsive (mobile 320-767px, tablette 768-1023px, desktop 1024px+), sans débordement horizontal
