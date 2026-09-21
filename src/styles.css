@@ -103,21 +103,6 @@
   }
 }
 
-/* Motif technique inspiré des plans d'architecte */
-@utility blueprint-grid {
-  background-image:
-    linear-gradient(to right, oklch(0.68 0.186 43 / 10%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(0.68 0.186 43 / 10%) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
-@utility blueprint-grid-light {
-  background-image:
-    linear-gradient(to right, oklch(1 0 0 / 7%) 1px, transparent 1px),
-    linear-gradient(to bottom, oklch(1 0 0 / 7%) 1px, transparent 1px);
-  background-size: 64px 64px;
-}
-
 @utility rule-accent {
   &::before {
     content: "";

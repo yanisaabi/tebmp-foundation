@@ -107,12 +107,6 @@ function Index() {
             </div>
           </div>
         </div>
-
-        {/* Grille technique continue, par-dessus texte et photo, pour souder la composition */}
-        <div
-          className="pointer-events-none absolute inset-0 blueprint-grid-light opacity-40"
-          aria-hidden="true"
-        />
       </section>
 
       {/* Chiffres clés */}
