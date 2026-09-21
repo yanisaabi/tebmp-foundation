@@ -8,7 +8,7 @@ export const Route = createFileRoute("/mentions-legales")({
       {
         name: "description",
         content:
-          "Mentions légales de TEBMP, SAS au capital de 170 000 €, SIREN 501 456 479, RCS Toulouse, 13 Bis impasse de la Flambère, 31300 Toulouse.",
+          "Mentions légales du site TEBMP : éditeur, coordonnées, propriété intellectuelle et traitement des données personnelles.",
       },
       { property: "og:title", content: "Mentions légales | TEBMP" },
       { property: "og:description", content: "Informations légales de la société TEBMP." },

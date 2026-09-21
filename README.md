@@ -100,9 +100,10 @@ FAQ courte (3-4 questions, sur la page Contact ou en bas de l'accueil) :
 - "Comment vous contacter ?" → "Par téléphone au 05 61 31 08 49 ou via le formulaire de ce site."
 
 --- FOOTER (toutes les pages) ---
-TEBMP – SAS au capital de 170 000 € – SIREN 501 456 479 – RCS Toulouse
-13 Bis impasse de la Flambère, 31300 Toulouse – 05 61 31 08 49
+TEBMP – 13 Bis impasse de la Flambère, 31300 Toulouse – 05 61 31 08 49
 Liens : Accueil / Notre savoir-faire / Collectivités & secteur public / Contact / Mentions légales (page simple avec ces infos légales)
+
+Le capital social, le SIREN et le RCS ne sont volontairement pas répétés dans le pied de page : ils figurent uniquement sur la page Mentions légales, où la LCEN impose leur présence.
 
 === EXIGENCES TECHNIQUES ===
 - Site full responsive (mobile 320-767px, tablette 768-1023px, desktop 1024px+), sans débordement horizontal
