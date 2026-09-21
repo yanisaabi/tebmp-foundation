@@ -110,15 +110,13 @@ function Index() {
       </section>
 
       {/* Chiffres clés */}
-      <section className="border-y border-primary-foreground/10 bg-primary">
-        <div className="mx-auto grid w-full max-w-[96rem] gap-px bg-primary-foreground/15 px-0 sm:grid-cols-2 lg:grid-cols-4">
+      <section className="border-b border-border bg-surface">
+        <div className="mx-auto grid w-full max-w-[96rem] gap-px bg-border px-0 sm:grid-cols-2 lg:grid-cols-4">
           {facts.map((f, i) => (
-            <Reveal key={f.value} delay={i * 90} className="h-full bg-primary">
-              <div className="h-full bg-primary px-6 py-9 lg:px-8">
-                <p className="font-display text-xl font-semibold text-primary-foreground">
-                  {f.value}
-                </p>
-                <p className="mt-1 text-sm text-primary-foreground/60">{f.label}</p>
+            <Reveal key={f.value} delay={i * 90} className="h-full bg-surface">
+              <div className="h-full bg-surface px-6 py-9 lg:px-8">
+                <p className="font-display text-xl font-semibold text-foreground">{f.value}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{f.label}</p>
               </div>
             </Reveal>
           ))}
