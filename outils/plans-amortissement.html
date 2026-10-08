@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier amortissements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f4f6f9;
+  --card:#ffffff;
+  --ink:#14233a;
+  --ink-soft:#4a5a70;
+  --muted:#7b889a;
+  --line:#e2e7ee;
+  --navy:#1b2f4e;
+  --navy-2:#2a4470;
+  --teal:#0e8a87;
+  --teal-soft:#e3f3f2;
+  --amber:#e8a33d;
+  --amber-soft:#fdf3e2;
+  --ok:#1f9d63;
+  --ok-bg:#e5f6ee;
+  --ko:#d24545;
+  --ko-bg:#fcebeb;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(20,35,58,.05),0 4px 16px rgba(20,35,58,.05);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:15px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;cursor:pointer}
+.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 96px}
+
+/* En-tête */
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;border-radius:11px;background:var(--navy);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;letter-spacing:-.5px;position:relative}
+.logo::after{content:"";position:absolute;right:7px;bottom:7px;width:7px;height:7px;border-radius:50%;background:var(--amber)}
+.brand h1{font-size:19px;margin:0;letter-spacing:-.3px}
+.brand p{margin:0;color:var(--muted);font-size:13px}
+
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);padding:9px 14px;border-radius:10px;font-weight:500;transition:background .15s,border-color .15s,transform .05s}
+.btn:hover{border-color:#c8d1dd;background:#fafbfd}
+.btn:active{transform:translateY(1px)}
+.btn.primary{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn.primary:hover{background:#0b7a77}
+.btn.navy{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.navy:hover{background:var(--navy-2)}
+.btn.amber{background:var(--amber-soft);border-color:#f0d29f;color:#7a4d06}
+.btn.ghost{background:transparent;border-color:transparent;color:var(--ink-soft)}
+.btn.ghost:hover{background:#eef1f5}
+.btn.small{padding:6px 10px;font-size:13px}
+
+/* Mise en page */
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}
+@media (max-width:900px){.layout{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);border:1px solid var(--line);padding:18px}
+.card + .card{margin-top:16px}
+.card h2{font-size:16px;margin:0 0 12px;letter-spacing:-.2px}
+.label{font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:8px}
+
+/* Choix du mode */
+.controls{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.seg{display:flex;flex-wrap:wrap;background:#eef1f5;border-radius:11px;padding:4px;gap:4px}
+.seg button{border:0;background:transparent;padding:8px 13px;border-radius:8px;color:var(--ink-soft);font-weight:500;font-size:14px}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--navy);box-shadow:0 1px 3px rgba(20,35,58,.12);font-weight:600}
+
+/* Énoncé */
+.sujet{border-left:4px solid var(--navy);background:#fbfcfe}
+.sujet .head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.sujet .tag{font-size:12px;color:var(--teal);background:var(--teal-soft);padding:3px 9px;border-radius:99px;font-weight:600}
+.sujet p{margin:0 0 10px}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;margin:12px 0}
+.fact{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 11px}
+.fact span{display:block;font-size:12px;color:var(--muted)}
+.fact b{font-weight:600}
+.travail{margin:12px 0 0;padding-left:20px}
+.travail li{margin:3px 0}
+.units-table{border-collapse:collapse;margin:6px 0 4px;font-size:14px}
+.units-table th,.units-table td{border:1px solid var(--line);padding:5px 10px;text-align:right;font-variant-numeric:tabular-nums}
+.units-table th{background:#f1f4f8;font-weight:600;color:var(--ink-soft)}
+.units-table td:first-child,.units-table th:first-child{text-align:left}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* Tableaux d'exercice */
+.tcard .thead{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.tcard .thead h2{margin:0}
+.score{font-size:13.5px;font-weight:600;padding:4px 10px;border-radius:99px;background:#eef1f5;color:var(--ink-soft)}
+.score.good{background:var(--ok-bg);color:var(--ok)}
+.score.mid{background:var(--amber-soft);color:#8a5a0c}
+.score.bad{background:var(--ko-bg);color:var(--ko)}
+table.plan{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;min-width:560px}
+table.plan th{font-size:12.5px;font-weight:600;color:var(--ink-soft);text-align:right;padding:8px 8px;border-bottom:1px solid var(--line);background:#f7f9fb;white-space:nowrap}
+table.plan th:first-child{text-align:left;border-top-left-radius:8px}
+table.plan th:last-child{border-top-right-radius:8px}
+table.plan td{padding:5px 6px;border-bottom:1px solid #eef1f5;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.plan td:first-child{text-align:left;font-weight:600;color:var(--navy);padding-left:8px}
+table.plan tr:last-child td{border-bottom:0}
+table.plan input{
+  width:100%;min-width:92px;text-align:right;font:inherit;font-variant-numeric:tabular-nums;
+  padding:7px 8px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);
+  transition:border-color .15s,background .15s
+}
+table.plan input:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,138,135,.15)}
+table.plan input.ok{background:var(--ok-bg);border-color:#9fd8bc;color:#145c3b}
+table.plan input.ko{background:var(--ko-bg);border-color:#efb1b1;color:#8c2222}
+table.plan.corr td{padding:8px 8px}
+table.plan tfoot td{font-weight:600;border-top:1px solid var(--line);background:#fafbfd}
+
+.hint{margin-top:12px;background:var(--amber-soft);border:1px solid #f3dcb3;border-radius:10px;padding:12px 14px;font-size:14px}
+.hint b{color:#7a4d06}
+.hint ul{margin:6px 0 0;padding-left:18px}
+.correction{margin-top:14px;border-top:1px dashed var(--line);padding-top:14px}
+.correction h3{font-size:14px;margin:0 0 8px;color:var(--teal)}
+.formula{background:#f3f7fb;border:1px solid #dde6f0;border-radius:10px;padding:12px 14px;margin:10px 0;font-size:14px}
+.formula code{font-family:inherit;font-weight:600;color:var(--navy)}
+.formula .res{color:var(--teal);font-weight:700}
+.explain{margin:10px 0 0;padding-left:0;list-style:none;font-size:14px}
+.explain li{padding:7px 0;border-bottom:1px solid #f0f2f6;color:var(--ink-soft)}
+.explain li b{color:var(--ink)}
+.explain li:last-child{border-bottom:0}
+
+textarea{width:100%;min-height:96px;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;resize:vertical}
+textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,138,135,.15)}
+
+/* Barre d'actions */
+.actions{position:sticky;bottom:12px;z-index:5;margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:14px;padding:10px;box-shadow:0 6px 24px rgba(20,35,58,.10)}
+.actions .total{margin-left:auto;font-weight:600;font-size:14px;color:var(--ink-soft)}
+@media (max-width:560px){.actions .btn{flex:1 1 auto}.actions .total{width:100%;text-align:center;margin:2px 0 0}}
+
+/* Suivi */
+.stats .row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #eef1f5;font-size:14px}
+.stats .row:last-of-type{border-bottom:0}
+.stats .meter{height:6px;border-radius:99px;background:#eef1f5;margin-top:5px;overflow:hidden}
+.stats .meter i{display:block;height:100%;background:var(--teal);border-radius:99px}
+.stats .name{font-weight:600}
+.stats .sub{color:var(--muted);font-size:12.5px}
+.stats .avg{font-weight:700;color:var(--navy);font-variant-numeric:tabular-nums}
+.selftest{font-size:12.5px;color:var(--muted);margin-top:12px;line-height:1.45}
+.selftest .okdot{color:var(--ok);font-weight:700}
+.selftest .kodot{color:var(--ko);font-weight:700}
+.tip{font-size:13px;color:var(--ink-soft)}
+
+/* Fiche mémo */
+.overlay{position:fixed;inset:0;background:rgba(14,24,40,.35);z-index:20;display:none}
+.overlay.open{display:block}
+.drawer{position:fixed;top:0;right:0;height:100%;width:min(560px,100%);background:var(--card);z-index:21;transform:translateX(100%);transition:transform .25s ease;overflow-y:auto;box-shadow:-10px 0 40px rgba(20,35,58,.15)}
+.drawer.open{transform:none}
+.drawer .dhead{position:sticky;top:0;background:var(--card);display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}
+.drawer .dhead h2{margin:0;font-size:18px}
+.drawer .dbody{padding:6px 20px 30px}
+.drawer h3{font-size:15px;margin:20px 0 8px;color:var(--navy);display:flex;align-items:center;gap:8px}
+.drawer h3::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--amber)}
+.drawer p,.drawer li{font-size:14px;color:var(--ink-soft)}
+.drawer ul{padding-left:18px;margin:6px 0}
+.drawer table{border-collapse:collapse;font-size:14px;margin:6px 0}
+.drawer table th,.drawer table td{border:1px solid var(--line);padding:6px 12px;text-align:left}
+.drawer table th{background:#f1f4f8}
+.box{background:#f3f7fb;border:1px solid #dde6f0;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:14px}
+.box b{color:var(--navy)}
+.muted{color:var(--muted)}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <div class="logo">A</div>
+      <div>
+        <h1>Atelier amortissements</h1>
+        <p>Entraînement aux plans d'amortissement · comptabilité française</p>
+      </div>
+    </div>
+    <button class="btn amber" id="btnMemo">Fiche mémo</button>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="card">
+        <div class="label">Type d'exercice</div>
+        <div class="controls">
+          <div class="seg" role="group" aria-label="Type d'exercice" id="modeSeg">
+            <button data-mode="lin" aria-pressed="true">Linéaire</button>
+            <button data-mode="deg" aria-pressed="false">Dégressif</button>
+            <button data-mode="uo" aria-pressed="false">Unités d'œuvre</button>
+            <button data-mode="all" aria-pressed="false">Les 3 (exercice complet)</button>
+          </div>
+          <button class="btn navy" id="btnNew">Nouvel exercice</button>
+        </div>
+      </section>
+
+      <section class="card sujet" id="sujet"></section>
+      <div id="tables"></div>
+
+      <div class="actions">
+        <button class="btn primary" id="btnCheck">Vérifier</button>
+        <button class="btn" id="btnHint">Indice</button>
+        <button class="btn" id="btnCorr">Voir la correction</button>
+        <span class="total" id="totalScore"></span>
+      </div>
+    </main>
+
+    <aside>
+      <section class="card stats">
+        <h2>Mon suivi</h2>
+        <div id="statsBody"></div>
+        <button class="btn ghost small" id="btnReset" style="margin-top:10px">Remettre à zéro</button>
+      </section>
+      <section class="card">
+        <h2>Comment ça marche</h2>
+        <p class="tip">Remplis les cases avec tes calculs (format libre : <b>2916,67</b>, <b>2 916,67</b> ou <b>2916.67</b>). Les taux se saisissent en % (<b>35</b> ou <b>35 %</b>).</p>
+        <p class="tip">« Vérifier » colore chaque case : tolérance de ±0,02 € pour les arrondis.</p>
+        <div class="selftest" id="selfTest"></div>
+      </section>
+    </aside>
+  </div>
+</div>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Fiche mémo">
+  <div class="dhead">
+    <h2>Fiche mémo</h2>
+    <button class="btn ghost small" id="btnCloseMemo">Fermer ✕</button>
+  </div>
+  <div class="dbody">
+    <h3>Vocabulaire</h3>
+    <ul>
+      <li><b>Valeur d'origine (V)</b> : prix d'achat du bien HT + frais d'acquisition.</li>
+      <li><b>Annuité (ou dotation)</b> : la part du bien « consommée » dans l'année.</li>
+      <li><b>Cumul</b> : total des annuités depuis le début.</li>
+      <li><b>VNC (valeur nette comptable)</b> = V − cumul des amortissements. À la fin du plan, VNC = 0.</li>
+    </ul>
+
+    <h3>Amortissement linéaire</h3>
+    <div class="box"><b>Taux</b> = 100 / durée &nbsp;·&nbsp; <b>Annuité</b> = V × taux</div>
+    <ul>
+      <li>Point de départ : la <b>date de mise en service</b>.</li>
+      <li>1re année : <b>V × taux × jours / 360</b>, en comptant des mois de 30 jours, de la mise en service au 31/12.<br><span class="muted">Ex. : mise en service le 1er avril → 9 mois × 30 = 270 jours.</span></li>
+      <li>Années pleines : V × taux.</li>
+      <li>Dernière année : le reste du prorata (360 − jours de la 1re année). Le plan a donc <b>durée + 1</b> exercices si la 1re année est incomplète.</li>
+    </ul>
+
+    <h3>Amortissement dégressif</h3>
+    <div class="box"><b>Taux dégressif</b> = taux linéaire × coefficient</div>
+    <table>
+      <tr><th>Durée d'utilisation</th><th>Coefficient</th></tr>
+      <tr><td>3 ou 4 ans</td><td>1,25</td></tr>
+      <tr><td>5 ou 6 ans</td><td>1,75</td></tr>
+      <tr><td>Plus de 6 ans</td><td>2,25</td></tr>
+    </table>
+    <ul>
+      <li>Point de départ : le <b>1er jour du mois d'acquisition</b>. On compte en <b>mois</b>.<br><span class="muted">Ex. : acquis le 25 mars → mars à décembre = 10 mois.</span></li>
+      <li>1re année : <b>V × taux dégressif × mois / 12</b>.</li>
+      <li>Années suivantes : <b>VNC de début × taux retenu</b>.</li>
+      <li>Pas d'année supplémentaire : le plan dure exactement « durée » exercices.</li>
+    </ul>
+    <div class="box"><b>Passage au linéaire</b> : chaque année, on compare le taux dégressif au taux linéaire = <b>1 / nombre d'années restantes</b> (en comptant l'année en cours). On garde le <b>plus grand</b>. Dès qu'on passe au linéaire, on y reste : les annuités restantes sont égales (VNC ÷ années restantes).</div>
+
+    <h3>Qui a droit au dégressif ?</h3>
+    <ul>
+      <li>Bien acquis <b>neuf</b> (pas d'occasion).</li>
+      <li>Durée d'utilisation d'<b>au moins 3 ans</b>.</li>
+      <li>Biens d'équipement : machines et matériels industriels, matériel informatique, robots, véhicules utilitaires, chariots, installations techniques…</li>
+      <li><b>Exclus</b> : voitures de tourisme, bâtiments d'habitation / bureaux, mobilier de bureau, biens d'occasion.</li>
+    </ul>
+
+    <h3>Unités d'œuvre</h3>
+    <div class="box"><b>Annuité</b> = V × unités de l'année / total des unités</div>
+    <ul>
+      <li>Unités : heures de fonctionnement, kilomètres, pièces produites…</li>
+      <li>Pas de prorata temporis : l'utilisation réelle suffit.</li>
+      <li>Idéal quand l'usure dépend de l'utilisation (machine, camion).</li>
+    </ul>
+
+    <h3>Arrondis</h3>
+    <ul>
+      <li>Montants arrondis à 2 décimales.</li>
+      <li>La dernière annuité « rattrape » les arrondis : la somme des annuités = V et la VNC finale = 0.</li>
+    </ul>
+  </div>
+</aside>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== Outils ===================== */
+const MOIS = ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+const rand = (a,b) => a + Math.floor(Math.random()*(b-a+1));
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+// division entière arrondie (a, b entiers positifs) : arrondi au plus proche, 0,5 vers le haut
+const rdiv = (a,b) => Math.floor((2*a + b) / (2*b));
+
+const nfMoney = new Intl.NumberFormat("fr-FR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const nfInt = new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0});
+const nfPct = new Intl.NumberFormat("fr-FR",{maximumFractionDigits:2});
+const sp = s => s.replace(/[  ]/g," ");
+const eur = c => sp(nfMoney.format(c/100));              // 2 916,67
+const eurShort = c => c % 100 === 0 ? sp(nfInt.format(c/100)) : eur(c);
+const num = n => sp(nfInt.format(n));
+const pct = f => sp(nfPct.format(Math.round(f*10000)/100)) + " %";
+const coefTxt = c => sp(nfPct.format(c/100));
+const dateTxt = (d,m,y) => (d===1 ? "1er" : d) + " " + MOIS[m-1] + (y ? " " + y : "");
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+
+function parseInput(str){
+  if(str == null) return NaN;
+  let s = String(str).trim().replace(/[\s  €%]/g,"").replace(",",".");
+  if(s === "" || !/^-?\d*\.?\d+$/.test(s)) return NaN;
+  return parseFloat(s);
+}
+
+/* ===================== Données ===================== */
+const UNITES = {
+  h:  {nom:"heures de fonctionnement", court:"h",      min:900,   max:3800,   pas:50},
+  km: {nom:"kilomètres parcourus",     court:"km",     min:18000, max:75000,  pas:500},
+  p:  {nom:"pièces produites",         court:"pièces", min:6000,  max:110000, pas:500}
+};
+const BIENS = [
+  {nom:"une machine-outil à commande numérique", court:"Machine-outil", deg:true, u:"h", type:"machine",
+   conseil:"Une machine-outil s'use surtout quand elle tourne. L'amortissement par <b>unités d'œuvre</b> (heures) colle le mieux à l'usure réelle. Le <b>dégressif</b> est aussi possible (bien industriel neuf, durée ≥ 3 ans) pour amortir plus vite au début et réduire l'impôt les premières années."},
+  {nom:"un parc d'ordinateurs portables", court:"Ordinateurs", deg:true, u:"h", type:"info",
+   conseil:"Le matériel informatique devient vite dépassé (<b>obsolescence rapide</b>). Le <b>dégressif</b> est le plus adapté : il constate une grosse perte de valeur dès les premières années, et c'est un <b>avantage fiscal</b> (charges plus fortes au début → moins d'impôt tout de suite). Le bien est neuf et sa durée est ≥ 3 ans, il y a donc droit."},
+  {nom:"un serveur informatique", court:"Serveur", deg:true, u:"h", type:"info",
+   conseil:"Un serveur perd vite de sa valeur avec les progrès techniques (<b>obsolescence rapide</b>). Je propose le <b>dégressif</b> : plus d'amortissement au début, ce qui reflète la perte de valeur réelle et donne un <b>avantage fiscal</b>. Conditions remplies : bien neuf, durée ≥ 3 ans."},
+  {nom:"un robot de soudage", court:"Robot de soudage", deg:true, u:"p", type:"machine",
+   conseil:"L'usure d'un robot de soudage dépend du nombre de pièces soudées : les <b>unités d'œuvre</b> donnent la charge la plus juste chaque année. Le <b>dégressif</b> se défend aussi (technologie qui évolue vite, avantage fiscal, bien neuf éligible)."},
+  {nom:"une presse hydraulique", court:"Presse", deg:true, u:"p", type:"machine",
+   conseil:"Une presse s'use en fonction du nombre de pièces produites, qui varie d'une année à l'autre. Les <b>unités d'œuvre</b> sont donc le choix le plus logique : chaque année supporte une charge proportionnelle à la production."},
+  {nom:"un chariot élévateur", court:"Chariot élévateur", deg:true, u:"h", type:"machine",
+   conseil:"Un chariot élévateur s'use selon ses heures d'utilisation : les <b>unités d'œuvre</b> (heures) reflètent le mieux son usure. Le <b>dégressif</b> est possible aussi (matériel de manutention neuf) si l'entreprise veut un avantage fiscal rapide."},
+  {nom:"un camion de livraison (véhicule utilitaire)", court:"Camion utilitaire", deg:true, u:"km", type:"vehicule",
+   conseil:"Un camion s'use avec les kilomètres parcourus : les <b>unités d'œuvre</b> (km) sont les plus fidèles à la réalité. Comme c'est un véhicule <b>utilitaire</b> neuf, le <b>dégressif</b> est aussi autorisé (contrairement à une voiture de tourisme)."},
+  {nom:"une imprimante 3D industrielle", court:"Imprimante 3D", deg:true, u:"p", type:"info",
+   conseil:"C'est une technologie qui évolue très vite (<b>obsolescence rapide</b>). Le <b>dégressif</b> est adapté : forte perte de valeur au début et <b>avantage fiscal</b>. Les unités d'œuvre (pièces) restent une bonne alternative si la production varie beaucoup."},
+  {nom:"une ligne d'embouteillage", court:"Ligne d'embouteillage", deg:true, u:"p", type:"machine",
+   conseil:"La ligne s'use au rythme de la production : les <b>unités d'œuvre</b> (pièces produites) répartissent le coût au plus juste. Le dégressif est possible (installation industrielle neuve) pour un avantage fiscal."},
+  {nom:"un tracteur agricole", court:"Tracteur", deg:true, u:"h", type:"machine",
+   conseil:"L'usure d'un tracteur dépend des heures de travail, très variables selon les saisons : les <b>unités d'œuvre</b> (heures) sont le meilleur choix. Le dégressif est aussi permis (matériel neuf, durée ≥ 3 ans)."},
+  {nom:"une grue mobile", court:"Grue mobile", deg:true, u:"h", type:"machine",
+   conseil:"Une grue s'use selon ses heures d'utilisation sur les chantiers : les <b>unités d'œuvre</b> collent à la réalité. Le dégressif reste possible (matériel neuf éligible)."},
+  {nom:"une voiture de tourisme pour un commercial", court:"Voiture de tourisme", deg:false, u:"km", type:"tourisme",
+   conseil:"Attention : une voiture de tourisme <b>n'a pas droit au dégressif</b>. On choisit le <b>linéaire</b> (simple, usure régulière) ou les <b>unités d'œuvre</b> (km) si le kilométrage varie beaucoup d'une année à l'autre."},
+  {nom:"du mobilier de bureau", court:"Mobilier de bureau", deg:false, u:null, type:"mobilier",
+   conseil:"Le mobilier de bureau s'use de façon régulière et <b>n'a pas droit au dégressif</b>. Le <b>linéaire</b> est le choix naturel : même charge chaque année."}
+];
+const SOCIETES = ["SARL Moreau Industrie","SAS Techno-Val","SA Garonne Logistique","SARL Atelier Dumas","SAS Méca-Sud","SAS Ouest Emballage","SARL Lambert & Fils","SAS Alpes Distribution","SA Normandie Précision","SARL Breizh Transports"];
+
+const COEF = n => n <= 4 ? 125 : n <= 6 ? 175 : 225;   // coefficient × 100
+
+/* ===================== Calculs ===================== */
+function joursLin(mes){ // jours de la mise en service au 31/12, base 360
+  const d = Math.min(mes.d,30);
+  return (30 - d + 1) + (12 - mes.m) * 30;
+}
+
+function planLineaire(ex){
+  const V = ex.V, n = ex.n, j = joursLin(ex.mes);
+  const nb = j < 360 ? n + 1 : n;
+  const full = rdiv(V, n), first = rdiv(V * j, 360 * n);
+  const rows = []; let cum = 0;
+  for(let i = 0; i < nb; i++){
+    let a, jours;
+    if(i === nb - 1){ a = V - cum; jours = (j < 360 && nb > 1) ? 360 - j : 360; if(nb === 1) jours = j; }
+    else if(i === 0){ a = first; jours = j; }
+    else { a = full; jours = 360; }
+    cum += a;
+    rows.push({year: ex.year + i, base: V, annuite: a, cumul: cum, vnc: V - cum, jours,
+               theo: rdiv(V * jours, 360 * n)});
+  }
+  return {rows, j, full, first};
+}
+
+function planDegressif(ex){
+  const V = ex.V, n = ex.n, c = COEF(n), mois = 13 - ex.acq.m;
+  const rows = []; let vnc = V, lin = false, linAnn = 0, linRate = 0, linFrom = 0;
+  for(let k = 1; k <= n; k++){
+    const r = n - k + 1, vd = vnc;
+    let switched = false;
+    if(!lin && k > 1 && 100 * n >= c * r){ lin = true; switched = true; linAnn = rdiv(vd, r); linRate = 1 / r; linFrom = k; }
+    let a;
+    if(k === n) a = vd;
+    else if(lin) a = linAnn;
+    else if(k === 1) a = rdiv(V * c * mois, 100 * n * 12);
+    else a = rdiv(vd * c, 100 * n);
+    const rate = lin ? linRate : c / (100 * n);
+    const accepted = lin ? [linRate, 1 / r] : [rate];
+    vnc = vd - a;
+    rows.push({year: ex.year + k - 1, vncDebut: vd, taux: rate, tauxOK: accepted, tauxLinAnnee: 1 / r,
+               restant: r, mode: lin ? "lin" : "deg", switched, annuite: a, vncFin: vnc});
+  }
+  return {rows, c, mois, tauxDeg: c / (100 * n), linFrom};
+}
+
+function planUO(ex){
+  const V = ex.V, total = ex.units.reduce((s,u) => s + u, 0);
+  const rows = []; let cum = 0;
+  ex.units.forEach((u,i) => {
+    const a = i === ex.units.length - 1 ? V - cum : rdiv(V * u, total);
+    cum += a;
+    rows.push({year: ex.year + i, unites: u, annuite: a, cumul: cum, vnc: V - cum, theo: rdiv(V * u, total)});
+  });
+  return {rows, total};
+}
+
+function computePlans(ex){
+  ex.plans = {lin: planLineaire(ex), deg: planDegressif(ex)};
+  if(ex.units) ex.plans.uo = planUO(ex);
+  return ex;
+}
+
+/* Contrôles : somme des annuités = V, VNC finale = 0, cohérence des colonnes */
+function controlePlans(ex){
+  const errs = [];
+  const P = ex.plans;
+  const chk = (name, rows, vncKey) => {
+    const sum = rows.reduce((s,r) => s + r.annuite, 0);
+    if(sum !== ex.V) errs.push(name + " : somme des annuités ≠ valeur d'origine");
+    if(rows[rows.length-1][vncKey] !== 0) errs.push(name + " : VNC finale ≠ 0");
+    if(rows.some(r => r.annuite < 0)) errs.push(name + " : annuité négative");
+  };
+  chk("Linéaire", P.lin.rows, "vnc");
+  chk("Dégressif", P.deg.rows, "vncFin");
+  if(P.uo) chk("Unités d'œuvre", P.uo.rows, "vnc");
+  if(P.deg.rows.length !== ex.n) errs.push("Dégressif : nombre d'années ≠ durée");
+  const expLin = joursLin(ex.mes) < 360 ? ex.n + 1 : ex.n;
+  if(P.lin.rows.length !== expLin) errs.push("Linéaire : nombre d'exercices incorrect");
+  return errs;
+}
+
+/* ===================== Génération ===================== */
+function genUnits(code, n){
+  const U = UNITES[code];
+  const base = rand(U.min, U.max);
+  const out = [];
+  for(let i = 0; i < n; i++){
+    let v = base * (0.65 + Math.random() * 0.7);
+    v = Math.max(U.pas, Math.round(v / U.pas) * U.pas);
+    out.push(v);
+  }
+  return out;
+}
+
+function genExercise(mode){
+  let pool = BIENS;
+  if(mode === "deg" || mode === "all") pool = BIENS.filter(b => b.deg);
+  if(mode === "uo") pool = BIENS.filter(b => b.u);
+  const bien = pick(pool);
+  const n = rand(3, 10);
+  const V = (Math.random() < 0.5 ? rand(5, 60) * 1000 : rand(10, 120) * 500) * 100; // en centimes
+  const year = rand(2023, 2026);
+  // Acquisition : janvier à novembre
+  const am = rand(1, 11);
+  const dim = new Date(year, am, 0).getDate();
+  const ad = rand(1, dim);
+  const acqDate = new Date(year, am - 1, ad);
+  let mesDate;
+  const roll = Math.random();
+  if(roll < 0.35 && am < 12){ mesDate = new Date(year, am, 1); }               // 1er du mois suivant
+  else { mesDate = new Date(year, am - 1, ad + rand(3, 40)); }               // quelques jours / semaines après
+  if(mesDate.getFullYear() !== year || mesDate.getMonth() === 11 && mesDate.getDate() > 20){
+    mesDate = new Date(year, am - 1, Math.min(ad + rand(2, 10), dim));
+  }
+  if(mesDate <= acqDate) mesDate = new Date(year, am - 1, ad + 1);
+  const ex = {
+    id: Date.now() + "-" + Math.random().toString(36).slice(2,7),
+    mode, bien, n, V, year,
+    societe: pick(SOCIETES),
+    acq: {d: ad, m: am},
+    mes: {d: mesDate.getDate(), m: mesDate.getMonth() + 1},
+    units: null, unitCode: null
+  };
+  if(bien.u && (mode === "uo" || mode === "all")){
+    ex.unitCode = bien.u;
+    ex.units = genUnits(bien.u, n);
+  }
+  return computePlans(ex);
+}
+
+/* ===================== Colonnes ===================== */
+const COLS = {
+  lin: [
+    {k:"base", label:"Base", t:"money"},
+    {k:"annuite", label:"Annuité", t:"money"},
+    {k:"cumul", label:"Cumul", t:"money"},
+    {k:"vnc", label:"VNC", t:"money"}],
+  deg: [
+    {k:"vncDebut", label:"VNC début", t:"money"},
+    {k:"taux", label:"Taux retenu (%)", t:"rate"},
+    {k:"annuite", label:"Annuité", t:"money"},
+    {k:"vncFin", label:"VNC fin", t:"money"}],
+  uo: [
+    {k:"unites", label:"Unités", t:"int"},
+    {k:"annuite", label:"Annuité", t:"money"},
+    {k:"cumul", label:"Cumul", t:"money"},
+    {k:"vnc", label:"VNC", t:"money"}]
+};
+const TITRES = {lin:"Plan d'amortissement linéaire", deg:"Plan d'amortissement dégressif", uo:"Plan d'amortissement par unités d'œuvre"};
+const fmtCell = (row, col) => col.t === "money" ? eur(row[col.k]) : col.t === "rate" ? pct(row[col.k]) : num(row[col.k]);
+
+/* ===================== État ===================== */
+const state = {mode:"lin", ex:null, recorded:{}, hint:false, corr:false};
+
+/* ===================== Rendu énoncé ===================== */
+function methodsOf(ex){ return ex.mode === "all" ? ["lin","deg","uo"] : [ex.mode]; }
+
+function renderSujet(){
+  const ex = state.ex, b = ex.bien;
+  const errs = controlePlans(ex);
+  let html = `<div class="head"><div class="label" style="margin:0">Énoncé</div>
+    <span class="tag">${{lin:"Linéaire",deg:"Dégressif",uo:"Unités d'œuvre",all:"Exercice complet"}[ex.mode]}</span></div>`;
+  html += `<p>L'entreprise <b>${esc(ex.societe)}</b> investit dans ${b.nom}, acquis${b.nom.startsWith("une") ? "e" : ""} <b>neu${b.nom.startsWith("une") ? "ve" : "f"}</b>, pour une valeur d'origine de <b>${eurShort(ex.V)} € HT</b>. Elle prévoit de l'utiliser pendant <b>${ex.n} ans</b>. L'exercice comptable correspond à l'année civile (clôture le 31 décembre).</p>`;
+  html += `<div class="facts">
+    <div class="fact"><span>Valeur d'origine</span><b>${eurShort(ex.V)} €</b></div>
+    <div class="fact"><span>Durée d'utilisation</span><b>${ex.n} ans</b></div>
+    <div class="fact"><span>Date d'acquisition</span><b>${dateTxt(ex.acq.d, ex.acq.m, ex.year)}</b></div>
+    <div class="fact"><span>Date de mise en service</span><b>${dateTxt(ex.mes.d, ex.mes.m, ex.year)}</b></div>
+  </div>`;
+  if(ex.units){
+    const U = UNITES[ex.unitCode];
+    html += `<p style="margin-top:4px">Prévisions d'utilisation (${U.nom}) :</p><div class="scroll"><table class="units-table"><tr><th>Année</th>${ex.units.map((u,i) => `<th>${ex.year + i}</th>`).join("")}<th>Total</th></tr><tr><td>${U.court}</td>${ex.units.map(u => `<td>${num(u)}</td>`).join("")}<td><b>${num(ex.plans.uo.total)}</b></td></tr></table></div>`;
+  }
+  html += `<div class="label" style="margin-top:14px">Travail à faire</div><ol class="travail">`;
+  methodsOf(ex).forEach(m => {
+    html += `<li>${{lin:"Établissez le plan d'amortissement linéaire.",deg:"Établissez le plan d'amortissement dégressif.",uo:"Établissez le plan d'amortissement selon les unités d'œuvre."}[m]}</li>`;
+  });
+  if(ex.mode === "all") html += `<li>Proposez un type d'amortissement en le justifiant.</li>`;
+  html += `</ol>`;
+  if(errs.length){ html += `<p style="color:var(--ko);font-size:13px;margin-top:10px">⚠ Contrôle interne : ${errs.join(" ; ")}</p>`; console.error(errs); }
+  document.getElementById("sujet").innerHTML = html;
+}
+
+/* ===================== Rendu tableaux ===================== */
+function renderTables(){
+  const ex = state.ex;
+  let html = "";
+  methodsOf(ex).forEach((m, idx) => {
+    const P = ex.plans[m], cols = COLS[m];
+    const n = ex.mode === "all" ? (idx + 1) + ". " : "";
+    html += `<section class="card tcard" data-method="${m}">
+      <div class="thead"><h2>${n}${TITRES[m]}</h2><span class="score hidden" data-score="${m}"></span></div>
+      <div class="scroll"><table class="plan"><thead><tr><th>Année</th>${cols.map(c => `<th>${c.label}</th>`).join("")}</tr></thead><tbody>`;
+    P.rows.forEach((row, r) => {
+      html += `<tr><td>${row.year}</td>${cols.map(c => `<td><input inputmode="decimal" autocomplete="off" data-m="${m}" data-r="${r}" data-k="${c.k}" aria-label="${c.label} ${row.year}"></td>`).join("")}</tr>`;
+    });
+    html += `</tbody></table></div>
+      <div class="hint hidden" data-hint="${m}">${hintHTML(m)}</div>
+      <div class="correction hidden" data-corr="${m}"></div>
+    </section>`;
+  });
+  if(ex.mode === "all"){
+    html += `<section class="card"><h2>4. Proposez un type d'amortissement en le justifiant</h2>
+      <textarea id="proposition" placeholder="Ta proposition et ta justification…"></textarea>
+      <div class="hint hidden" data-hint="prop"><b>Indice :</b> demande-toi si le bien perd vite de la valeur (obsolescence), si son usure dépend de l'utilisation, et s'il a le droit au dégressif (bien neuf, durée ≥ 3 ans, pas une voiture de tourisme ni du mobilier).</div>
+      <div class="correction hidden" data-corr="prop"><h3>Proposition corrigée</h3><p style="margin:0;font-size:14px">${ex.bien.conseil}</p></div>
+    </section>`;
+  }
+  document.getElementById("tables").innerHTML = html;
+  document.getElementById("totalScore").textContent = "";
+}
+
+function hintHTML(m){
+  const ex = state.ex;
+  if(m === "lin") return `<b>Indice — linéaire</b><ul>
+    <li>Taux = 100 / durée. Si le taux ne tombe pas juste (ex. 16,666… %), garde la valeur exacte : divise par la durée.</li>
+    <li>Le point de départ est la <b>date de mise en service</b> (pas la date d'acquisition).</li>
+    <li>1re annuité = Valeur × taux × (jours du ${dateTxt(ex.mes.d, ex.mes.m)} au 31/12) / 360, avec des mois de 30 jours.</li>
+    <li>Années pleines : Valeur × taux. Dernière année : le reste du prorata pour arriver à VNC = 0.</li>
+    <li>Cumul = somme des annuités ; VNC = Valeur − Cumul.</li></ul>`;
+  if(m === "deg") return `<b>Indice — dégressif</b><ul>
+    <li>Coefficient selon la durée : 1,25 (3-4 ans), 1,75 (5-6 ans), 2,25 (plus de 6 ans).</li>
+    <li>Taux dégressif = (100 / durée) × coefficient. Garde la valeur exacte dans les calculs, pas le taux arrondi.</li>
+    <li>Prorata en <b>mois</b> à partir du 1er jour du <b>mois d'acquisition</b>.</li>
+    <li>1re annuité = Valeur × taux dégressif × mois / 12. Ensuite : VNC début × taux retenu.</li>
+    <li>Chaque année, compare avec 1 / (années restantes, année en cours comprise) et garde le plus grand.</li></ul>`;
+  return `<b>Indice — unités d'œuvre</b><ul>
+    <li>Annuité = Valeur × unités de l'année / total des unités.</li>
+    <li>Pas de prorata : seule l'utilisation compte.</li>
+    <li>Dernière annuité : ajuste l'arrondi pour que la VNC finale soit 0.</li></ul>`;
+}
+
+/* ===================== Correction ===================== */
+function corrHTML(m){
+  const ex = state.ex, P = ex.plans[m], cols = COLS[m];
+  let html = `<h3>Tableau corrigé</h3><div class="scroll"><table class="plan corr"><thead><tr><th>Année</th>${cols.map(c => `<th>${c.label.replace(" (%)","")}</th>`).join("")}</tr></thead><tbody>`;
+  P.rows.forEach(row => { html += `<tr><td>${row.year}</td>${cols.map(c => `<td>${fmtCell(row, c)}</td>`).join("")}</tr>`; });
+  const tot = P.rows.reduce((s,r) => s + r.annuite, 0);
+  const totCells = cols.map(c => c.k === "annuite" ? `<td>${eur(tot)}</td>` : c.k === "unites" ? `<td>${num(P.total)}</td>` : `<td></td>`).join("");
+  html += `</tbody><tfoot><tr><td>Total</td>${totCells}</tr></tfoot></table></div>`;
+
+  const V = ex.V, n = ex.n, Ve = eurShort(ex.V);
+  const tauxLin = pct(1 / n);
+  const linExact = 10000 % n === 0, degExact = (P.c * 100) % n === 0;
+  // facteurs écrits sous forme exacte quand le taux arrondi fausserait le calcul
+  const fLin = linExact ? `× ${tauxLin}` : `/ ${n}`;
+  const noteExact = `<div class="tip" style="margin-top:6px">⚠ ${n} ne divise pas 100 « juste » : on garde le taux <b>exact</b> dans les calculs (diviser par ${n}), pas le taux arrondi.</div>`;
+  if(m === "lin"){
+    const j = P.j, d = Math.min(ex.mes.d,30), moisPleins = 12 - ex.mes.m;
+    const detailJ = `(30 − ${d} + 1) jours en ${MOIS[ex.mes.m-1]}${moisPleins ? ` + ${moisPleins} mois × 30 jours` : ""} = <b>${j} jours</b>`;
+    html += `<div class="formula"><div><code>Taux = 100 / ${n} = ${tauxLin}</code></div>
+      <div style="margin-top:6px">Mise en service le ${dateTxt(ex.mes.d, ex.mes.m, ex.year)} → ${detailJ}</div>
+${linExact ? "" : noteExact}
+      <div style="margin-top:6px"><code>1re annuité = ${Ve} ${fLin} × ${j}/360</code> = <span class="res">${eur(P.first)} €</span></div></div>`;
+    html += `<h3>Explication ligne par ligne</h3><ul class="explain">`;
+    P.rows.forEach((row, i) => {
+      let t;
+      const last = i === P.rows.length - 1;
+      if(i === 0 && j < 360) t = `Le bien ne sert que ${j} jours sur 360 cette année. Annuité = ${Ve} ${fLin} × ${j}/360 = ${eur(row.annuite)} €.`;
+      else if(last && j < 360) t = `Dernière année : on termine le prorata de la 1re année, soit 360 − ${j} = ${row.jours} jours. ${Ve} ${fLin} × ${row.jours}/360 ≈ ${eur(row.theo)} €${row.theo !== row.annuite ? `, ajusté à ${eur(row.annuite)} € pour absorber les arrondis` : ""}. La VNC tombe à 0.`;
+      else if(last) t = `Dernière année pleine : on prend ce qui reste, ${eur(row.annuite)} €, pour que la VNC tombe à 0.`;
+      else t = `Année complète : ${Ve} ${fLin} = ${eur(row.annuite)} €.`;
+      html += `<li><b>${row.year}</b> — ${t} Cumul = ${eur(row.cumul)} € ; VNC = ${Ve} − ${eur(row.cumul)} = ${eur(row.vnc)} €.</li>`;
+    });
+    html += `</ul>`;
+  }
+  if(m === "deg"){
+    const td = pct(P.tauxDeg);
+    const fDeg = degExact ? `× ${td}` : `× ${coefTxt(P.c)} / ${n}`;
+    html += `<div class="formula"><div>Durée ${n} ans → coefficient <b>${coefTxt(P.c)}</b></div>
+      <div style="margin-top:6px"><code>Taux dégressif = ${tauxLin} × ${coefTxt(P.c)} = ${td}</code></div>${degExact ? "" : `<div class="tip" style="margin-top:6px">⚠ Dans les calculs, on garde le taux exact : × ${coefTxt(P.c)} / ${n} (et non × ${td} arrondi).</div>`}
+      <div style="margin-top:6px">Acquisition le ${dateTxt(ex.acq.d, ex.acq.m, ex.year)} → on part du 1er ${MOIS[ex.acq.m-1]} : de ${MOIS[ex.acq.m-1]} à décembre = <b>${P.mois} mois</b></div>
+      <div style="margin-top:6px"><code>1re annuité = ${Ve} ${fDeg} × ${P.mois}/12</code> = <span class="res">${eur(P.rows[0].annuite)} €</span></div></div>`;
+    html += `<h3>Explication ligne par ligne</h3><ul class="explain">`;
+    P.rows.forEach((row, i) => {
+      let t;
+      const last = i === P.rows.length - 1;
+      const cmp = `Il reste ${row.restant} an${row.restant > 1 ? "s" : ""} → taux linéaire = 1/${row.restant} = ${pct(row.tauxLinAnnee)}.`;
+      if(i === 0) t = `1re année, prorata de ${P.mois} mois : ${Ve} ${fDeg} × ${P.mois}/12 = ${eur(row.annuite)} €. (Taux linéaire 1/${n} = ${tauxLin} &lt; ${td} : on garde le dégressif.)`;
+      else if(row.mode === "deg") t = `${cmp} ${td} ≥ ${pct(row.tauxLinAnnee)} → on garde le dégressif. ${eur(row.vncDebut)} ${fDeg} = ${eur(row.annuite)} €.`;
+      else if(row.switched) t = `${cmp} ${pct(row.tauxLinAnnee)} ≥ ${td} → <b>on passe en linéaire</b>. Annuité = ${eur(row.vncDebut)} / ${row.restant} = ${eur(rdiv(row.vncDebut, row.restant))} €${last ? "" : ", et elle restera la même jusqu'à la fin"}${last && rdiv(row.vncDebut,row.restant) !== row.annuite ? ` (ajustée à ${eur(row.annuite)} €)` : ""}.`;
+      else t = `On reste en linéaire (taux ${pct(row.taux)} appliqué à la VNC du passage en linéaire, soit 1/${row.restant} = ${pct(row.tauxLinAnnee)} de la VNC de début — les deux sont acceptés) : même annuité${last ? `, ajustée si besoin pour finir à 0 : ${eur(row.annuite)} €` : ` : ${eur(row.annuite)} €`}.`;
+      html += `<li><b>${row.year}</b> — ${t} VNC fin = ${eur(row.vncDebut)} − ${eur(row.annuite)} = ${eur(row.vncFin)} €.</li>`;
+    });
+    html += `</ul><p class="tip" style="margin:8px 0 0">Pas d'année supplémentaire : le prorata de la 1re année n'est pas rattrapé, le plan dure exactement ${n} exercices.</p>`;
+  }
+  if(m === "uo"){
+    const U = UNITES[ex.unitCode], r0 = P.rows[0];
+    html += `<div class="formula"><div>Total des unités = ${ex.units.map(num).join(" + ")} = <b>${num(P.total)} ${U.court}</b></div>
+      <div style="margin-top:6px"><code>1re annuité = ${Ve} × ${num(r0.unites)} / ${num(P.total)}</code> = <span class="res">${eur(r0.annuite)} €</span></div></div>`;
+    html += `<h3>Explication ligne par ligne</h3><ul class="explain">`;
+    P.rows.forEach((row, i) => {
+      const last = i === P.rows.length - 1;
+      let t = `${num(row.unites)} ${U.court} sur ${num(P.total)} : ${Ve} × ${num(row.unites)} / ${num(P.total)} ${last && row.theo !== row.annuite ? `≈ ${eur(row.theo)} €, ajusté à ${eur(row.annuite)} € pour finir à 0` : `= ${eur(row.annuite)} €`}.`;
+      html += `<li><b>${row.year}</b> — ${t} Cumul = ${eur(row.cumul)} € ; VNC = ${eur(row.vnc)} €.</li>`;
+    });
+    html += `</ul>`;
+  }
+  return html;
+}
+
+/* ===================== Vérification ===================== */
+function expectedValues(m, r, k){
+  const row = state.ex.plans[m].rows[r];
+  if(k === "taux") return row.tauxOK.map(f => f * 100);
+  if(k === "unites") return [row.unites];
+  return [row[k] / 100];
+}
+
+function checkMethod(m){
+  const inputs = document.querySelectorAll(`input[data-m="${m}"]`);
+  let ok = 0;
+  inputs.forEach(inp => {
+    const k = inp.dataset.k, r = +inp.dataset.r;
+    let v = parseInput(inp.value);
+    if(k === "taux" && !isNaN(v) && v > 0 && v <= 1) v *= 100;
+    const exp = expectedValues(m, r, k);
+    const tol = k === "unites" ? 0.5 : 0.02 + 1e-9;
+    const good = !isNaN(v) && exp.some(e => Math.abs(v - e) <= tol);
+    inp.classList.toggle("ok", good);
+    inp.classList.toggle("ko", !good);
+    if(good) ok++;
+  });
+  const total = inputs.length, p = Math.round(ok / total * 100);
+  const badge = document.querySelector(`[data-score="${m}"]`);
+  badge.textContent = `${ok} / ${total} cases · ${p} %`;
+  badge.className = "score " + (p >= 90 ? "good" : p >= 50 ? "mid" : "bad");
+  // Suivi : un exercice compte une fois par méthode, on garde le dernier score
+  const prev = state.recorded[m];
+  const stats = loadStats();
+  if(prev === undefined){ stats[m].n += 1; stats[m].sum += p; }
+  else { stats[m].sum += p - prev; }
+  state.recorded[m] = p;
+  saveStats(stats); renderStats();
+  return {ok, total};
+}
+
+/* ===================== Suivi (localStorage) ===================== */
+const KEY = "atelier-amortissements-suivi-v1";
+const emptyStats = () => ({lin:{n:0,sum:0}, deg:{n:0,sum:0}, uo:{n:0,sum:0}});
+let memStats = emptyStats();
+function loadStats(){
+  try{
+    const s = JSON.parse(localStorage.getItem(KEY));
+    if(s && s.lin && s.deg && s.uo) return s;
+  }catch(e){}
+  return JSON.parse(JSON.stringify(memStats));
+}
+function saveStats(s){
+  memStats = s;
+  try{ localStorage.setItem(KEY, JSON.stringify(s)); }catch(e){}
+}
+function renderStats(){
+  const s = loadStats();
+  const names = {lin:"Linéaire", deg:"Dégressif", uo:"Unités d'œuvre"};
+  const total = s.lin.n + s.deg.n + s.uo.n;
+  let html = "";
+  ["lin","deg","uo"].forEach(m => {
+    const avg = s[m].n ? Math.round(s[m].sum / s[m].n) : null;
+    html += `<div class="row"><div style="flex:1"><div class="name">${names[m]}</div>
+      <div class="sub">${s[m].n} tableau${s[m].n > 1 ? "x" : ""} vérifié${s[m].n > 1 ? "s" : ""}</div>
+      <div class="meter"><i style="width:${avg ?? 0}%"></i></div></div>
+      <div class="avg" style="margin-left:14px">${avg === null ? "—" : avg + " %"}</div></div>`;
+  });
+  html += `<p class="sub" style="margin:8px 0 0">${total} tableau${total > 1 ? "x" : ""} au total</p>`;
+  document.getElementById("statsBody").innerHTML = html;
+}
+
+/* ===================== Actions ===================== */
+function newExercise(){
+  state.ex = genExercise(state.mode);
+  state.recorded = {}; state.hint = false; state.corr = false;
+  renderSujet(); renderTables();
+  document.getElementById("btnCorr").textContent = "Voir la correction";
+  document.getElementById("btnHint").textContent = "Indice";
+}
+
+document.getElementById("modeSeg").addEventListener("click", e => {
+  const b = e.target.closest("button[data-mode]"); if(!b) return;
+  state.mode = b.dataset.mode;
+  document.querySelectorAll("#modeSeg button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  newExercise();
+});
+document.getElementById("btnNew").addEventListener("click", newExercise);
+document.getElementById("btnCheck").addEventListener("click", () => {
+  let ok = 0, total = 0;
+  methodsOf(state.ex).forEach(m => { const r = checkMethod(m); ok += r.ok; total += r.total; });
+  const p = Math.round(ok / total * 100);
+  document.getElementById("totalScore").textContent = `Score : ${ok} / ${total} (${p} %)`;
+});
+document.getElementById("btnHint").addEventListener("click", () => {
+  state.hint = !state.hint;
+  document.querySelectorAll("[data-hint]").forEach(h => h.classList.toggle("hidden", !state.hint));
+  document.getElementById("btnHint").textContent = state.hint ? "Masquer l'indice" : "Indice";
+});
+document.getElementById("btnCorr").addEventListener("click", () => {
+  state.corr = !state.corr;
+  document.querySelectorAll("[data-corr]").forEach(c => {
+    const m = c.dataset.corr;
+    if(m !== "prop" && !c.innerHTML) c.innerHTML = corrHTML(m);
+    c.classList.toggle("hidden", !state.corr);
+  });
+  document.getElementById("btnCorr").textContent = state.corr ? "Masquer la correction" : "Voir la correction";
+});
+document.getElementById("btnReset").addEventListener("click", () => {
+  if(!confirm("Remettre le suivi à zéro ?")) return;
+  memStats = emptyStats();
+  try{ localStorage.removeItem(KEY); }catch(e){}
+  state.recorded = {};
+  renderStats();
+});
+// Entrée = case suivante
+document.getElementById("tables").addEventListener("keydown", e => {
+  if(e.key !== "Enter" || e.target.tagName !== "INPUT") return;
+  e.preventDefault();
+  const all = [...document.querySelectorAll("#tables input")];
+  const i = all.indexOf(e.target);
+  if(all[i+1]) all[i+1].focus();
+});
+document.getElementById("tables").addEventListener("input", e => {
+  if(e.target.tagName === "INPUT") e.target.classList.remove("ok","ko");
+});
+
+// Fiche mémo
+const drawer = document.getElementById("drawer"), overlay = document.getElementById("overlay");
+const openMemo = o => { drawer.classList.toggle("open", o); overlay.classList.toggle("open", o); drawer.setAttribute("aria-hidden", o ? "false" : "true"); };
+document.getElementById("btnMemo").addEventListener("click", () => openMemo(true));
+document.getElementById("btnCloseMemo").addEventListener("click", () => openMemo(false));
+overlay.addEventListener("click", () => openMemo(false));
+document.addEventListener("keydown", e => { if(e.key === "Escape") openMemo(false); });
+
+/* ===================== Tests automatiques ===================== */
+function selfTest(){
+  const res = {ref:[], rand:{n:0, errs:[]}};
+  const ref = computePlans({V:1000000, n:5, year:2025, acq:{d:25,m:3}, mes:{d:1,m:4},
+                            units:[12000,13000,14000,15000,16000], unitCode:"h", bien:BIENS[0], mode:"all"});
+  const same = (name, got, exp) => {
+    const ok = got.length === exp.length && got.every((g,i) => g === exp[i]);
+    if(!ok) res.ref.push(`${name} : obtenu ${got.map(eur).join(" ; ")} / attendu ${exp.map(eur).join(" ; ")}`);
+  };
+  same("Linéaire", ref.plans.lin.rows.map(r => r.annuite), [150000,200000,200000,200000,200000,50000]);
+  same("Dégressif", ref.plans.deg.rows.map(r => r.annuite), [291667,247917,161146,149635,149635]);
+  same("Unités d'œuvre", ref.plans.uo.rows.map(r => r.annuite), [171429,185714,200000,214286,228571]);
+  if(Math.abs(ref.plans.deg.tauxDeg - 0.35) > 1e-12) res.ref.push("Dégressif : taux ≠ 35 %");
+  res.ref.push(...controlePlans(ref));
+  for(let i = 0; i < 2000; i++){
+    const ex = genExercise(pick(["lin","deg","uo","all"]));
+    const e = controlePlans(ex);
+    if(ex.mes.m < ex.acq.m || (ex.mes.m === ex.acq.m && ex.mes.d <= ex.acq.d)) e.push("mise en service avant acquisition");
+    if(ex.V < 500000 || ex.V > 6000000 || ex.V % 50000) e.push("valeur hors bornes");
+    if((ex.mode === "deg" || ex.mode === "all") && !ex.bien.deg) e.push("bien non éligible au dégressif");
+    res.rand.n++;
+    if(e.length) res.rand.errs.push(...e);
+  }
+  const box = document.getElementById("selfTest");
+  const refOK = res.ref.length === 0, randOK = res.rand.errs.length === 0;
+  box.innerHTML = `<b>Contrôles automatiques</b><br>
+    <span class="${refOK ? "okdot" : "kodot"}">${refOK ? "✓" : "✗"}</span> Cas de référence (10 000 €, 5 ans) ${refOK ? "conforme" : "en erreur"}<br>
+    <span class="${randOK ? "okdot" : "kodot"}">${randOK ? "✓" : "✗"}</span> ${num(res.rand.n)} plans aléatoires : somme des annuités = valeur, VNC finale = 0`;
+  if(!refOK) console.error("Cas de référence :", res.ref);
+  if(!randOK) console.error("Plans aléatoires :", [...new Set(res.rand.errs)]);
+  window.__selfTest = {refOK, randOK, ref: res.ref, rand: [...new Set(res.rand.errs)]};
+}
+
+/* ===================== Démarrage ===================== */
+renderStats();
+newExercise();
+selfTest();
+})();
+</script>
+</body>
+</html>
